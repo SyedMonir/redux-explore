@@ -1,50 +1,67 @@
-/*
- * State
- * Dispatch Action
- * Reducer
- * Action
- */
-
 const { createStore } = require('redux');
 
-// Defining Constants
-const INCREMENT = 'INCREMENT';
-const DECREMENT = 'DECREMENT';
+// State
+// Action == Action is Object it has two thing type, payload
+// Reducer
+// Store
 
-// state
-const initialCounterState = {
+// Constant
+const INCREMENT = 'INCREMENT';
+const INCREMENT_BY_VALUE = 'INCREMENT_BY_VALUE';
+const DECREMENT = 'DECREMENT';
+const RESET = 'RESET';
+
+// State
+const initialState = {
   count: 0,
 };
 
-// Action is Object it has two thing type, payload
-
-// INCREMENT  - Counter
-const incrementCounter = () => {
+// Action
+// Payload er maddome data recieve kore
+const incrementAction = () => {
   return {
     type: INCREMENT,
   };
 };
-
-// DECREMENT  - Counter
-const decrementCounter = () => {
+const incrementByValue = (value) => {
+  return {
+    type: INCREMENT_BY_VALUE,
+    payload: value,
+  };
+};
+const decrementAction = () => {
   return {
     type: DECREMENT,
   };
 };
+const resetAction = () => {
+  return {
+    type: RESET,
+  };
+};
 
 // Reducer
-
-const counterReducer = (state = initialCounterState, action) => {
+const counterReducer = (state = initialState, action) => {
   switch (action.type) {
     case INCREMENT:
       return {
         ...state,
         count: state.count + 1,
       };
+    case INCREMENT_BY_VALUE:
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
     case DECREMENT:
       return {
         ...state,
         count: state.count - 1,
+      };
+    case RESET:
+      return {
+        ...state,
+        count: 0,
       };
 
     default:
@@ -59,8 +76,11 @@ store.subscribe(() => {
   console.log(store.getState());
 });
 
-// Dispatch action
-store.dispatch(incrementCounter());
-store.dispatch(incrementCounter());
-store.dispatch(incrementCounter());
-store.dispatch(decrementCounter());
+store.dispatch(decrementAction());
+store.dispatch(incrementAction());
+store.dispatch(resetAction());
+store.dispatch(incrementAction());
+store.dispatch(decrementAction());
+store.dispatch(incrementAction());
+store.dispatch(incrementAction());
+store.dispatch(incrementByValue(10));
