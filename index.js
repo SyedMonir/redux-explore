@@ -32,8 +32,20 @@ const decrementCounter = () => {
 
 // Reducer
 
-for (var i = 0; i < 3; i++) {
-  setTimeout(function () {
-    alert(i);
-  }, 1000 + i);
-}
+const counterReducer = (state = initialCounterState, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case DECREMENT:
+      return {
+        ...state,
+        count: state.count - 1,
+      };
+
+    default:
+      state;
+  }
+};
